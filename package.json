@@ -1,0 +1,359 @@
+{
+  "name": "zovo-fbx-viewer",
+  "displayName": "FBX Viewer & DAE, 3DS Preview",
+  "description": "FBX viewer for VS Code: open .fbx (binary and ASCII 7.x), Collada .dae and .3ds models in a 3D view with orbit, wireframe, normals, bounds and skeleton, play the animation clips, and read the scene tree, materials, missing textures and model stats. Offline, no account.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1C2230",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/fbx-viewer-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/fbx-viewer-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/fbx-viewer-vscode#readme",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "fbx",
+    "collada",
+    "3d viewer",
+    "3d model",
+    "game assets"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onUri"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "fbxViewer.editor",
+        "displayName": "FBX Viewer (3D)",
+        "selector": [
+          {
+            "filenamePattern": "*.fbx"
+          },
+          {
+            "filenamePattern": "*.dae"
+          },
+          {
+            "filenamePattern": "*.3ds"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "fbxViewer.openWith",
+        "title": "Open in FBX Viewer",
+        "category": "FBX Viewer",
+        "icon": "$(symbol-misc)"
+      },
+      {
+        "command": "fbxViewer.openSample",
+        "title": "Open the Sample Robot Arm (FBX)",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.openWalkthrough",
+        "title": "Get Started",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.moreViewers",
+        "title": "More free tools by Zovo",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.supportDeveloper",
+        "title": "Support the developer",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.convert",
+        "title": "Convert to GLB, glTF, OBJ or STL (Pro)",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.assetCheck",
+        "title": "Asset Check Report (Pro)",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.renderExport",
+        "title": "Render Export: PNG at Any Size, Frame Strip (Pro)",
+        "category": "FBX Viewer"
+      },
+      {
+        "command": "fbxViewer.zovoPro.convert",
+        "title": "Zovo Pro: Convert to GLB, glTF, OBJ or STL"
+      },
+      {
+        "command": "fbxViewer.zovoPro.assetCheck",
+        "title": "Zovo Pro: Asset check report"
+      },
+      {
+        "command": "fbxViewer.zovoPro.renderExport",
+        "title": "Zovo Pro: Render export to PNG"
+      },
+      {
+        "command": "fbxViewer.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "fbxViewer.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "fbxViewer.unlockWithSponsors",
+        "title": "I already paid: unlock with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "fbxViewer.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "fbxViewer.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "fbxViewer.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "fbxViewer.enterKey",
+        "title": "Enter a key",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "fbxViewer.convert",
+          "when": "activeCustomEditorId == 'fbxViewer.editor' && config.fbxViewer.showProTools",
+          "group": "1_fbx@1"
+        },
+        {
+          "command": "fbxViewer.assetCheck",
+          "when": "activeCustomEditorId == 'fbxViewer.editor' && config.fbxViewer.showProTools",
+          "group": "1_fbx@2"
+        },
+        {
+          "command": "fbxViewer.renderExport",
+          "when": "activeCustomEditorId == 'fbxViewer.editor' && config.fbxViewer.showProTools",
+          "group": "1_fbx@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "fbxViewer.openWith",
+          "when": "resourceFilename =~ /\\.(fbx|dae|3ds)$/i && !explorerResourceIsFolder",
+          "group": "navigation@9"
+        },
+        {
+          "command": "fbxViewer.zovoPro.convert",
+          "when": "resourceFilename =~ /\\.(fbx|dae|3ds)$/i && !explorerResourceIsFolder && config.fbxViewer.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "fbxViewer.zovoPro.assetCheck",
+          "when": "resourceFilename =~ /\\.(fbx|dae|3ds)$/i && !explorerResourceIsFolder && config.fbxViewer.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "fbxViewer.zovoPro.renderExport",
+          "when": "resourceFilename =~ /\\.(fbx|dae|3ds)$/i && !explorerResourceIsFolder && config.fbxViewer.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "fbxViewer.convert",
+          "when": "config.fbxViewer.showProTools"
+        },
+        {
+          "command": "fbxViewer.assetCheck",
+          "when": "config.fbxViewer.showProTools"
+        },
+        {
+          "command": "fbxViewer.renderExport",
+          "when": "config.fbxViewer.showProTools"
+        },
+        {
+          "command": "fbxViewer.zovoPro.convert",
+          "when": "false"
+        },
+        {
+          "command": "fbxViewer.zovoPro.assetCheck",
+          "when": "false"
+        },
+        {
+          "command": "fbxViewer.zovoPro.renderExport",
+          "when": "false"
+        },
+        {
+          "command": "fbxViewer.openWith",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "FBX Viewer",
+      "properties": {
+        "fbxViewer.background": {
+          "type": "string",
+          "enum": [
+            "theme",
+            "dark",
+            "light"
+          ],
+          "enumDescriptions": [
+            "The editor background of your color theme.",
+            "Dark grey.",
+            "Light grey."
+          ],
+          "default": "theme",
+          "description": "Background behind the model when a file opens. The toolbar can change it per tab."
+        },
+        "fbxViewer.upAxis": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "y",
+            "z"
+          ],
+          "enumDescriptions": [
+            "Y up for FBX and Collada (both files say which axis is up), Z up for 3DS.",
+            "Y up for every file.",
+            "Z up for every file."
+          ],
+          "default": "auto",
+          "description": "Which model axis points up when a file opens. The toolbar can change it per tab."
+        },
+        "fbxViewer.maxFileMB": {
+          "type": "number",
+          "default": 512,
+          "minimum": 1,
+          "maximum": 2048,
+          "description": "Files up to this size are opened. Larger files show a message and are not read."
+        },
+        "fbxViewer.assetCheck.triangleBudget": {
+          "type": "number",
+          "default": 100000,
+          "minimum": 1,
+          "description": "Triangle budget of the whole model for the asset check report (Pro)."
+        },
+        "fbxViewer.assetCheck.maxTextureSize": {
+          "type": "number",
+          "default": 2048,
+          "minimum": 16,
+          "description": "Largest texture side in pixels before the asset check report (Pro) warns."
+        },
+        "fbxViewer.assetCheck.maxBonesPerMesh": {
+          "type": "number",
+          "default": 64,
+          "minimum": 1,
+          "description": "Most bones one skinned mesh may use before the asset check report (Pro) fails it."
+        },
+        "fbxViewer.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Zovo Pro tools (convert, asset check, render export) in the Command Palette, the Explorer menu and the viewer toolbar. Everything free stays visible."
+        },
+        "fbxViewer.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once for a Marketplace rating after models opened without an error on two occasions at least 30 minutes apart. \"Later\" asks one more time after 7 days, \"No thanks\" never asks again. Nothing is sent anywhere."
+        },
+        "fbxViewer.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free tools and Zovo Pro links at the bottom of the viewer. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "fbxViewer.start",
+        "title": "Get started with the FBX Viewer",
+        "description": "Look at FBX, Collada and 3DS models in VS Code, with their animation clips.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open a model",
+            "description": "Click an .fbx, .dae or .3ds file in the Explorer. Drag to orbit, right-drag to pan, scroll to zoom.\n[Open the sample robot arm](command:fbxViewer.openSample)",
+            "media": {
+              "image": "images/screenshot.png",
+              "altText": "A robot arm FBX in the FBX Viewer with its skeleton, the clip bar, model stats and the scene tree."
+            },
+            "completionEvents": [
+              "onCommand:fbxViewer.openSample"
+            ]
+          },
+          {
+            "id": "inspect",
+            "title": "Wireframe, normals, bounds and bones",
+            "description": "Turn on Wireframe, Normals, Bounds and Skeleton in the toolbar. The panel lists the meshes, bones, materials and textures, and names every texture file that is missing.",
+            "media": {
+              "markdown": "walkthrough/inspect.md"
+            }
+          },
+          {
+            "id": "animate",
+            "title": "Play the animation clips",
+            "description": "Pick a clip, play or pause it, drag the timeline, change the speed and turn looping on or off.",
+            "media": {
+              "markdown": "walkthrough/animate.md"
+            }
+          },
+          {
+            "id": "related",
+            "title": "Tools for the files next to your models",
+            "description": "These free Zovo extensions open the files that often sit beside FBX models. A link opens the extension page, and you choose there whether to install it.\n[STL, OBJ, GLB & glTF viewer](command:extension.open?%5B%22zovo.3d-model-viewer%22%5D)\n[TGA, DDS & KTX texture viewer](command:extension.open?%5B%22zovo.zovo-texture-viewer%22%5D)\n[USD viewer](command:extension.open?%5B%22zovo.zovo-usd-viewer%22%5D)",
+            "media": {
+              "markdown": "walkthrough/related.md"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "samples": "node scripts/make-samples.mjs",
+    "vendor": "node scripts/build-vendor.js",
+    "package": "npx -y @vscode/vsce@3 package --no-dependencies"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "three": "0.187.0"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}

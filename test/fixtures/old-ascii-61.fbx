@@ -1,0 +1,23 @@
+; FBX 6.1.0 project file
+; Copyright (C) 1997-2008 Autodesk Inc. and/or its licensors.
+; All rights reserved.
+; ----------------------------------------------------
+
+FBXHeaderExtension:  {
+	FBXHeaderVersion: 1003
+	FBXVersion: 6100
+	Creator: "FBX SDK/FBX Plugins version 2010.2"
+}
+Creator: "FBX SDK/FBX Plugins version 2010.2"
+
+Definitions:  {
+	Version: 100
+	Count: 1
+}
+Objects:  {
+	Model: "Model::Cube", "Mesh" {
+		Version: 232
+		Vertices: -1,-1,-1,1,-1,-1,1,1,-1
+		PolygonVertexIndex: 0,1,-3
+	}
+}
